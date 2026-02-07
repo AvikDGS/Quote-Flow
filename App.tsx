@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { QuotationForm } from './components/QuotationForm';
 import { QuotationPreview } from './components/QuotationPreview';
 import { QuotationData } from './types';
@@ -242,6 +243,7 @@ const App: React.FC = () => {
           </div>
         </footer>
       </div>
+      <Analytics />
     </div>
   );
 };
