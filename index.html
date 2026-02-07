@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>QuoteFlow - Dynamic Quote Builder</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "primary-dark": "#1a4bb0",
+                        "primary-neon": "#4f8aff",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#151e2e",
+                        "paper-white": "#fdfbf7",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "typewriter": ["Courier Prime", "monospace"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem", 
+                        "lg": "0.75rem", 
+                        "xl": "1rem", 
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        
+        .perspective-container {
+            perspective: 2000px;
+        }
+        
+        .paper-doc {
+            transform: rotateY(-8deg) rotateX(4deg);
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 
+                1px 1px 0 rgba(0,0,0,0.05),
+                5px 5px 15px rgba(0,0,0,0.1),
+                25px 25px 50px -10px rgba(0,0,0,0.3);
+        }
+
+        .paper-doc:hover {
+            transform: rotateY(-3deg) rotateX(2deg) scale(1.02);
+        }
+
+        .floating-input:focus ~ label,
+        .floating-input:not(:placeholder-shown) ~ label {
+            transform: translateY(-1.5rem) scale(0.8);
+            color: #2b6cee;
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: #2b6cee;
+            font-weight: bold;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes doc-shimmer {
+            0% { transform: translateX(-150%) skewX(-20deg); opacity: 0; }
+            50% { opacity: 0.15; }
+            100% { transform: translateX(250%) skewX(-20deg); opacity: 0; }
+        }
+
+        .animate-shimmer {
+            animation: doc-shimmer 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes content-pop {
+            0% { opacity: 0.95; transform: scale(0.995); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-content-pop {
+            animation: content-pop 0.4s ease-out forwards;
+        }
+
+        @media print { .no-print { display: none !important; } }
+        
+        ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "react": "https://esm.sh/react@^19.2.4",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "@google/genai": "https://esm.sh/@google/genai@^1.40.0"
+      }
+    }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-hidden h-screen transition-colors duration-300">
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</body>
+</html>
